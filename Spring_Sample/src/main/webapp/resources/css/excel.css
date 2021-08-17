@@ -1,0 +1,40 @@
+@charset "UTF-8";
+.backPage {
+	padding: 10px 20px;
+}
+.srch {
+	border: 2px solid #4285F4;
+	padding:10px 10px;
+}
+.srch span {
+	margin-right: 20px;
+}
+.srch select {
+	position: relative;
+	top: -1px;
+}
+.srch select:focus {
+	outline: none;
+}
+.srch button {
+	float: right;
+	border: 1px solid #4285F4;
+	border-radius: 3px;
+	margin-left: 10px;
+}
+.infoDiv {
+	margin: 30px 0;
+	height: 300px;
+	width: 100%;
+}
+.infoTitle {
+	font-weight: bold;
+}
+.infoDiv table {
+	margin-top: 3px;
+	border: 1px solid black;
+}
+.infoDiv form {
+	width: 302px;
+	float: right;
+}

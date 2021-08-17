@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="excelMapper">
+
+	<!-- 검색 조건 읽어오기 -->
+	<select id="readConditionName" statementType="PREPARED" resultType="String">
+		SELECT DISTINCT(NAME) FROM TD_PERSON_INFO
+	</select>
+	<select id="readConditionAge" statementType="PREPARED" resultType="String">
+		SELECT DISTINCT(AGE) FROM TD_PERSON_INFO
+	</select>
+	<select id="readConditionGender" statementType="PREPARED" resultType="String">
+		SELECT DISTINCT(GENDER) FROM TD_PERSON_INFO
+	</select>
+
+
+	<insert id="excelUpload" statementType="PREPARED" parameterType="Map">
+		INSERT INTO TD_PERSON_INFO VALUES (
+			'${cell0}',
+			'${cell1}',
+			'${cell2}',
+			'${cell3}',
+			'${cell4}',
+			'${cell5}'
+		)
+	</insert>
+
+	<select id="readPerson" statementType="PREPARED" parameterType="Map" resultType="Map">
+		SELECT * FROM TD_PERSON_INFO 
+			WHERE 1 = 1 
+			<if test = "name != '' and name != null">
+				AND NAME = #{name} 
+			</if> 
+			<if test = "age != '' and age != null">
+				AND AGE = #{age} 
+			</if>
+			<if test = "gender != '' and gender != null">
+				AND GENDER = #{gender} 
+			</if>
+	</select>
+</mapper>

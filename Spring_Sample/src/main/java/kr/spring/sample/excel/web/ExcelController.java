@@ -11,26 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import kr.spring.sample.excel.service.SampleService;
+import kr.spring.sample.excel.service.ExcelService;
 import kr.spring.sample.excel.util.DataUtil;
 import kr.spring.sample.excel.util.ExcelUtil;
 
-@RequestMapping(value="/sample")
+@RequestMapping(value="/excel")
 @Controller
-public class SampleController {
+public class ExcelController {
 	
-	@Resource(name = "sample.Service")
-	private SampleService sampleService;
+	@Resource(name = "excelService")
+	private ExcelService excelService;
 	
 	@RequestMapping("/main.do")
 	public String main(Model model) {
-		model.addAttribute("names", sampleService.readConditionName());
-		model.addAttribute("ages", sampleService.readConditionAge());
-		model.addAttribute("genders", sampleService.readConditionGender());
+		model.addAttribute("names", excelService.readConditionName());
+		model.addAttribute("ages", excelService.readConditionAge());
+		model.addAttribute("genders", excelService.readConditionGender());
 		return "/excel/main";
 	}
 	
@@ -40,16 +39,16 @@ public class SampleController {
 	public List<Map<String, Object>> readPerson(HttpServletRequest request) {
 		// DataUtil 을 통해 Map 으로 변환
 		Map<String, Object> param = DataUtil.getParameter(request.getParameterMap());
-		List<Map<String, Object>> datas = sampleService.readPerson(param);
+		List<Map<String, Object>> datas = excelService.readPerson(param);
 		return datas;
 	}
 	
 	// Excel 파일 다운로드
 	@RequestMapping("/writeExcel.do")
 	public void writeExcel(Map<String, Object> param, HttpServletResponse res) {
-		List<Map<String, Object>> datas = sampleService.readPerson(param);
+		List<Map<String, Object>> datas = excelService.readPerson(param);
 		try {
-			res.setContentType("application/json; charset=UTF-8");
+			/* res.setContentType("application/json; charset=UTF-8"); */
 			res.setHeader("Content-Disposition", "Attachment; Filename="+URLEncoder.encode("TestDownLoad01", "UTF-8")+".xlsx");
 			ExcelUtil.writeExcel(datas, res.getOutputStream());
 		} catch(Exception e) {
@@ -65,10 +64,10 @@ public class SampleController {
 	}
 	
 	// 신규 Excel 정보 추가
-	@RequestMapping("/insertPerson.do")
-	public String writeFile( ) {
+	@RequestMapping("/writePerson.do")
+	public String writePerson( ) {
 		List<Map<String, Object>> datas = null;
-			sampleService.excelUpload(datas);
+		excelService.excelUpload(datas);
 		return "/excel/main";
 	}
 }

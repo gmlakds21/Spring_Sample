@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import egovframework.rte.psl.dataaccess.EgovAbstractMapper;
 
-@Repository("sample.DAO")
-public class SampleDAO extends EgovAbstractMapper{
+@Repository("excelDAO")
+public class ExcelDAO extends EgovAbstractMapper{
 
 	@Resource(name="sqlSession")
 	public void setSqlSessionFactory(SqlSessionFactory sqlSession) {

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -51,7 +52,7 @@ public class ExcelUtil {
 	}
 	
 	// Excel 파일 다운로드
-	public static void writeExcel(List<Map<String, Object>> param, ServletOutputStream os) {
+	public static void writeExcel(List<Map<String, Object>> datas, ServletOutputStream os) {
 		String index = "pno,name,age,gender,phone,email";
 		Workbook workbook = new SXSSFWorkbook();
 		Sheet sheet = workbook.createSheet();
@@ -60,14 +61,16 @@ public class ExcelUtil {
 		Row row = sheet.createRow(0);
 		String[] headers = index.split(",");
 		for(int i=0; i<headers.length; i++) {
-			row.createCell(i).setCellValue(headers[i]);
+			Cell cell = row.createCell(i);
+			cell.setCellValue(headers[i]);
 		}
 		
 		// Body 만들기
-		for(int i=1; i<=param.size(); i++) {
+		for(int i=1; i<datas.size(); i++) {
 			row = sheet.createRow(i);
 			for(int j=0; j<headers.length; j++) {
-				row.createCell(j).setCellValue((String)param.get(i).get(headers[j]));
+				Cell cell = row.createCell(j);
+				cell.setCellValue((String)datas.get(i).get(headers[j]));
 			}
 		}
 		

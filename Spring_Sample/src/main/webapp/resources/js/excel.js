@@ -19,11 +19,12 @@ $('#srchBtn').click(function() {
 	
  	$.ajax({
  		type : 'GET',
- 		url : '/sample/readPerson.do',
+ 		url : '/excel/readPerson.do',
  		dataType : 'json',
  		contentType : 'application/json; charset=UTF-8',
  		data : param,
  		success : function(datas) {
+ 			$('#infoTable').innerHTML = '';
  			var html = '';
  			for(let data of datas) {
  				html += '<tr>';
@@ -40,11 +41,16 @@ $('#srchBtn').click(function() {
 });
 
 // 엑셀 다운로드 버튼 클릭시 실행되는 이벤트
-$('#downExcelBtn').click(function() {
+$('#excelDownBtn').click(function() {
 	$.ajax({
 		type : 'GET',
-		url : '/sample/readExcel.do',
+		url : '/excel/writeExcel.do',
+		dataType : 'json',
+		contentType : 'application/json; charset=UTF-8',
 		data : param,
+		success : function(datas) {
+			alert("다운로드 완료");
+		},
 		error: function(xhr, status, error) {
  			alert(xhr.status+" /--/ "+xhr.responseText+" /--/ "+error);
 		}

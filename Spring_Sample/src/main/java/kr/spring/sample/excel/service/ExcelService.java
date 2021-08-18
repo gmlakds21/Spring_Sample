@@ -7,34 +7,34 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import kr.spring.sample.excel.dao.SampleDAO;
+import kr.spring.sample.excel.dao.ExcelDAO;
 
-@Service("sample.Service")
-public class SampleService {
+@Service("excelService")
+public class ExcelService {
 
-	@Resource(name="sample.DAO")
-	private SampleDAO sampleDAO;
+	@Resource(name="excelDAO")
+	private ExcelDAO excelDAO;
 
 	// 검색 조건 읽어오기
 	public List<String> readConditionName() {
-		return sampleDAO.readConditionName();
+		return excelDAO.readConditionName();
 	}
 	public List<String> readConditionAge() {
-		return sampleDAO.readConditionAge();
+		return excelDAO.readConditionAge();
 	}
 	public List<String> readConditionGender() {
-		return sampleDAO.readConditionGender();
+		return excelDAO.readConditionGender();
 	}
 	
 	// Ajax 를 통한 정보 읽어오기
 	public List<Map<String, Object>> readPerson(Map<String, Object> order) {
-		return sampleDAO.readPerson(order);
+		return excelDAO.readPerson(order);
 	}
 
 	public int excelUpload(List<Map<String, Object>> datas) {
 		int cnt = 0;
 		for(Map<String, Object> data : datas) {
-			if(sampleDAO.excelUpload(data) > 0) {
+			if(excelDAO.excelUpload(data) > 0) {
 				cnt++;
 			};
 		}

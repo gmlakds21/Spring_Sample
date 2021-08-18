@@ -39,7 +39,7 @@
 					</c:forEach>
 				</select>
 			</span>
-			<button type="button" id="downExcelBtn"> 엑셀 다운로드 </button>
+			<button type="button" id="excelDownBtn"> 엑셀 다운로드 </button>
 			<button type="button" id="srchBtn"> 조회 </button>
 		</form>
 		
